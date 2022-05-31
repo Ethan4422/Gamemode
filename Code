@@ -47,7 +47,7 @@ public final class Main extends JavaPlugin implements Listener {
 
         ItemStack A = new ItemStack(Material.BEDROCK, 1);
         ItemMeta Ameta = A.getItemMeta();
-        Cmeta.setDisplayName(ChatColor.GRAY + "Adventure!");
+        Ameta.setDisplayName(ChatColor.GRAY + "Adventure!");
         A.setItemMeta(Ameta);
         inv.setItem(2, A);
 
