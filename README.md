@@ -1,0 +1,2 @@
+# Gamemode
+mc plugin
