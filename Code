@@ -1,0 +1,122 @@
+package me.ethan.gamemode;
+
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
+import org.bukkit.Material;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandExecutor;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryType;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.plugin.java.JavaPlugin;
+
+public final class Main extends JavaPlugin implements Listener {
+
+    public static Inventory gm;
+
+    @Override
+    public void onEnable() {
+        CreateInventory();
+
+        this.getServer().getPluginManager().registerEvents(this, this);
+    }
+
+    private void CreateInventory() {
+        Inventory inv = Bukkit.createInventory(null, InventoryType.HOPPER, "Choose a gamemode!");
+
+        ItemStack S = new ItemStack(Material.GRASS_BLOCK, 1);
+        ItemMeta Smeta = S.getItemMeta();
+        Smeta.setDisplayName(ChatColor.GREEN +"Survival!");
+        S.setItemMeta(Smeta);
+        inv.setItem(0, S);
+
+
+        ItemStack C = new ItemStack(Material.WOODEN_AXE, 1);
+        ItemMeta Cmeta = C.getItemMeta();
+        Cmeta.setDisplayName(ChatColor.GOLD + "Creative!");
+        C.setItemMeta(Cmeta);
+        inv.setItem(1, C);
+
+
+        ItemStack A = new ItemStack(Material.BEDROCK, 1);
+        ItemMeta Ameta = A.getItemMeta();
+        Cmeta.setDisplayName(ChatColor.GRAY + "Adventure!");
+        A.setItemMeta(Ameta);
+        inv.setItem(2, A);
+
+
+        ItemStack SP = new ItemStack(Material.BARRIER, 1);
+        ItemMeta SPmeta = SP.getItemMeta();
+        SPmeta.setDisplayName(ChatColor.RED + "Spectator!");
+        SP.setItemMeta(SPmeta);
+        inv.setItem(3, SP);
+
+        gm = inv;
+    }
+
+
+
+
+    @Override
+    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+        if (label.equalsIgnoreCase("gm")){
+            if(!(sender instanceof Player)){
+                sender.sendMessage(ChatColor.RED + "Console cannot open Gamemode List!!!");
+                return true;
+            }
+            Player player = (Player) sender;
+            if(player.isOp()) {
+                player.openInventory(gm);
+            }
+            else{
+                player.sendMessage(ChatColor.RED + "You do not have permission to run this command!");
+            }
+        }
+        return false;
+    }
+    @EventHandler
+    public void onClick(InventoryClickEvent e){
+        if (!e.getView().getTitle().contains("Choose a gamemode!")){
+            return;
+        }
+        if(e.getCurrentItem() == null) {
+            return;
+        }
+        Player player = (Player) e.getWhoClicked();
+        e.setCancelled(true);
+        if(e.getClickedInventory().getType() == InventoryType.PLAYER){
+            return;
+        }
+        if(e.getSlot() == 0){
+            if(player.isOp()) {
+                player.setGameMode(GameMode.SURVIVAL);
+                player.sendMessage(ChatColor.GREEN + "Your gamemode is now Survival!");
+            }
+        }
+        if(e.getSlot() == 1){
+            if(player.isOp()) {
+                player.setGameMode(GameMode.CREATIVE);
+                player.sendMessage(ChatColor.GREEN + "Your gamemode is now Creative!");
+            }
+        }
+        if(e.getSlot() == 2){
+            if(player.isOp()) {
+                player.setGameMode(GameMode.ADVENTURE);
+                player.sendMessage(ChatColor.GREEN + "Your gamemode is now Adventure!");
+            }
+        }
+        if(e.getSlot() == 3) {
+            if(player.isOp()) {
+                player.setGameMode(GameMode.SPECTATOR);
+                player.sendMessage(ChatColor.GREEN + "Your gamemode is now Spectator!");
+            }
+        }
+    }
+}
