@@ -96,26 +96,46 @@ public final class Main extends JavaPlugin implements Listener {
         }
         if(e.getSlot() == 0){
             if(player.isOp()) {
-                player.setGameMode(GameMode.SURVIVAL);
-                player.sendMessage(ChatColor.GREEN + "Your gamemode is now Survival!");
+                if(player.getGameMode() != GameMode.SURVIVAL) {
+                    player.setGameMode(GameMode.SURVIVAL);
+                    player.sendMessage(ChatColor.GREEN + "Your gamemode is now Survival!");
+                }
+                else{
+                    player.sendMessage(ChatColor.RED  + "You are already in Survival mode!");
+                }
             }
         }
         if(e.getSlot() == 1){
             if(player.isOp()) {
-                player.setGameMode(GameMode.CREATIVE);
-                player.sendMessage(ChatColor.GREEN + "Your gamemode is now Creative!");
+                if(player.getGameMode() != GameMode.CREATIVE) {
+                    player.setGameMode(GameMode.CREATIVE);
+                    player.sendMessage(ChatColor.GREEN + "Your gamemode is now Creative!");
+                }
+                else{
+                    player.sendMessage(ChatColor.RED +  "You are already in Creative mode!");
+                }
             }
         }
         if(e.getSlot() == 2){
             if(player.isOp()) {
-                player.setGameMode(GameMode.ADVENTURE);
-                player.sendMessage(ChatColor.GREEN + "Your gamemode is now Adventure!");
+                if(player.getGameMode() != GameMode.ADVENTURE) {
+                    player.setGameMode(GameMode.ADVENTURE);
+                    player.sendMessage(ChatColor.GREEN + "Your gamemode is now Adventure!");
+                }
+                else{
+                    player.sendMessage(ChatColor.RED + "You are already in Adventure mode!");
+                }
             }
         }
         if(e.getSlot() == 3) {
             if(player.isOp()) {
-                player.setGameMode(GameMode.SPECTATOR);
-                player.sendMessage(ChatColor.GREEN + "Your gamemode is now Spectator!");
+                if(player.getGameMode() != GameMode.SPECTATOR) {
+                    player.setGameMode(GameMode.SPECTATOR);
+                    player.sendMessage(ChatColor.GREEN + "Your gamemode is now Spectator!");
+                }
+                else{
+                    player.sendMessage(ChatColor.RED + "You are already in Spectator mode!");
+                }
             }
         }
     }
